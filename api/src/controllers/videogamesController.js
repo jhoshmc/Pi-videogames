@@ -8,7 +8,8 @@ const { Videogame, Genre } = require("../db");
 
 //*---------
 const getAllvideogames = async () => {
-  const responseApi = (await axios(`${url}?key=${API_KEY}`)).data.results;
+  const responseApi = (await axios(`${url}?key=${API_KEY}&limimit=15`)).data
+    .results;
   const responseDB = await Videogame.findAll({
     include: {
       model: Genre,
@@ -57,8 +58,9 @@ const getNameVideogame = async (name) => {
     limit: 15,
   });
 
-  const response = (await axios(`${url}?search=${name}&key=${API_KEY}`)).data
-    .results;
+  const response = (
+    await axios(`${url}?search=${name}&key=${API_KEY}&limit=15`)
+  ).data.results;
   if ([...resultsDB, ...response].length === 0) {
     throw new Error(`no se encontro el juego por el  nombre : ${name}`);
   }

@@ -49,5 +49,4 @@ const clearIdInfo = (data, tipo) => {
 module.exports = {
   clearIdInfo,
   clearInfo,
-  clearTahs,
 };
