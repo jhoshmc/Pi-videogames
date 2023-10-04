@@ -1,0 +1,15 @@
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background: url("../../asserts/timy.gif") no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.letras {
+  color: brown;
+}
