@@ -1,13 +1,14 @@
 import Card from "../card/Card";
 
 import style from "./cards.module.css";
-const Cards = () => {
+const Cards = ({ allVideogames }) => {
+  const videgamesList = allVideogames;
+  console.log(videgamesList.length);
   return (
     <div className={style.contenedor}>
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+      {videgamesList?.map((game) => (
+        <Card game={game} />
+      ))}
     </div>
   );
 };

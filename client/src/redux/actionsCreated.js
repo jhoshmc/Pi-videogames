@@ -9,12 +9,30 @@ export function getVideogames() {
     });
   };
 }
+export function getByName(name) {
+  return async function (dispatch) {
+    const response = await axios(
+      `http://localhost:3001/videogames/name?name=${name}`
+    );
+    return dispatch({
+      type: "GET_BY_NAME",
+      payload: response.data,
+    });
+  };
+}
+export function getDetail(id) {
+  return async function (dispatch) {
+    const response = await axios(`http://localhost:3001/videogames/${id}`);
+    return dispatch({
+      type: "GET_BY_DETAIL",
+      payload: response.data,
+    });
+  };
+}
 
 export function getGenres() {
   return async function (dispatch) {
-    const response = await axios(
-      "https://api.rawg.io/api/genres?key=c0793cbd9d2e46c49d2768571919f473"
-    );
+    const response = await axios("http://localhost:3001/genres");
     return dispatch({
       type: "GET_Genres",
       dispatch: response.data,

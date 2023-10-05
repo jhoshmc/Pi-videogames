@@ -1,19 +1,16 @@
 import SearchBar from "./searchBar/SearchBar";
 import { NavLink } from "react-router-dom";
 import style from "./navbar.module.css";
-const NavBar = () => {
+const NavBar = ({ handleChange, handleSubmit }) => {
   return (
     <div>
       <div>
-        <NavLink to="/home/:id">
-          <button>Detail</button>
-        </NavLink>
         <NavLink to="/form">
           <button>New videogame</button>
         </NavLink>
       </div>
       <div>
-        <SearchBar />
+        <SearchBar handleChange={handleChange} handleSubmit={handleSubmit} />
       </div>
 
       <div>
