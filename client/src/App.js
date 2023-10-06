@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import Landing from "./views/landingPage/Landing";
-import Form from "./views/form/Form";
+import Created from "./views/create/Create";
 import Detail from "./views/detail/Detail";
 import Home from "./views/home/Home";
 
@@ -12,7 +12,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/home/:id" element={<Detail />} />
-        <Route path="/form" element={<Form />} />
+        <Route path="/created" element={<Created />} />
       </Routes>
     </div>
   );

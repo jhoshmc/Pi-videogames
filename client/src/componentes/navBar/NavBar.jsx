@@ -5,7 +5,7 @@ const NavBar = ({ handleChange, handleSubmit }) => {
   return (
     <div>
       <div>
-        <NavLink to="/form">
+        <NavLink to="/created">
           <button>New videogame</button>
         </NavLink>
       </div>

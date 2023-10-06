@@ -39,3 +39,9 @@ export function getGenres() {
     });
   };
 }
+
+export function cleardetail() {
+  return {
+    type: "CLEAR_DETAIL",
+  };
+}

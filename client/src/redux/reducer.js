@@ -3,11 +3,13 @@ import {
   GET_VIDEOGAMES,
   GET_BY_NAME,
   GET_BY_DETAIL,
+  CLEAR_DETAIL,
 } from "./actionsTypes";
 
 const initialSate = {
   allVideogames: [],
   videogamesCopy: [],
+  detail: [],
   genres: [],
 };
 
@@ -28,12 +30,17 @@ const rootReducer = (state = initialSate, action) => {
     case GET_BY_DETAIL:
       return {
         ...state,
-        allVideogames: payload,
+        detail: payload,
       };
     case GET_GENRES:
       return {
         ...state,
         genres: payload,
+      };
+    case CLEAR_DETAIL:
+      return {
+        ...state,
+        detail: [],
       };
     default:
       return { ...state };

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getByName, getVideogames } from "../../redux/actionsCreated";
-import { NavLink } from "react-router-dom";
+//import { NavLink } from "react-router-dom";
 import NavBar from "../../componentes/navBar/NavBar";
 import Cards from "../../componentes/cards/Cards";
 import style from "./home.module.css";
@@ -9,7 +9,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const allVideogames = useSelector((state) => state.allVideogames);
   const [searchString, setSearchString] = useState("");
-  //console.log(allVideogames);
+  // console.log(allVideogames);
   function handleChange(event) {
     event.preventDefault();
     setSearchString(event.target.value);
@@ -45,7 +45,7 @@ const Home = () => {
   }, [dispatch]);
   return (
     <div className={style.container}>
-      <h2 className={style.home_title}>Home</h2>
+      <h3 className={style.home_title}>Videogames</h3>
       <div>
         <NavBar handleChange={handleChange} handleSubmit={handleSubmit} />
       </div>
