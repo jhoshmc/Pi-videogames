@@ -8,13 +8,13 @@ const Paginate = ({ paginate }) => {
       <button name="prev" onClick={paginate}>
         prev
       </button>
-
+      <br />
       <span>-</span>
       <div>
         <span>{cont}</span>
       </div>
       <span>-</span>
-
+      <br />
       <button name="next" onClick={paginate}>
         next
       </button>
