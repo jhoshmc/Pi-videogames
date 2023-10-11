@@ -3,11 +3,13 @@ import { NavLink } from "react-router-dom";
 const Card = ({ game }) => {
   // console.log(game);
 
-  const { name, genres, id } = game;
+  const { background_image, name, genres, id } = game;
   return (
     <div className={style.container}>
       <NavLink to={`/home/${id}`}>
-        <h2>imagen</h2>
+        <div key={id}>
+          <img src={background_image} alt={name} width="200px" height="200px" />
+        </div>
         <h2>{id}</h2>
         <h2>{name}</h2>
         <div>

@@ -1,27 +1,41 @@
 export const validation = (data) => {
   const errors = {};
-  if (data.name.length > 10) {
-    errors.name = "El nombre del juego no puede pasar los 10 caracteres";
+  const noSimbolos = /^[a-zA-Z0-9\s]*$/;
+  const noEspacios = /^[^,\s]+(?:,[^,\s]+)*$/;
+  const imagen = /\.(jpg|jpeg|png|gif|bmp|svg|webp)$/;
+
+  if (!data.name) {
+    errors.name = "El nombre no puede estar vacio";
   }
-  /*
-  if (data.background_image.length < 1) {
-    errors.name = "La url de la imagen no puede estar vacio";
+  if (!noSimbolos.test(data.name)) {
+    errors.name = "El nombre del juego no puede tener simbolos";
   }
 
-  if (!data.platforms.length) {
-    errors.name = "Las platforms del juego no pueden estar vacias";
+  if (!data.background_image) {
+    errors.background_image = "La url no puede estar vacia";
   }
-  if (!data.description.length > 100) {
-    errors.name = "La description no puede superar los 100 caracteres";
-  }
-
-  if (!data.relazed.length) {
-    errors.name = "El relazed del juego no puede estar vacio";
+  if (!imagen.test(data.background_image)) {
+    errors.background_image = "La url de la imagen no puede ser procesada";
   }
 
-  if (!data.rating.length) {
-    errors.name = "La rating del juego no puede estar vacio";
+  if (!data.platforms) {
+    errors.platforms = "Al menos deve tener una plataforma";
   }
-*/
+  if (!noEspacios.test(data.platforms)) {
+    errors.platforms =
+      "Las plataformas solo se pueden separa por comas y sin espacios";
+  }
+
+  if (!data.rating) {
+    errors.rating = "no puede estar vacio";
+  }
+  if (data.rating < 0 || data.rating > 5) {
+    errors.rating = "el rating no puede ser menor a 0 o mayor a 5";
+  }
+
+  if (data.idGenre.length === 0) {
+    errors.idGenre = "Al menos deve tener un genero";
+  }
+
   return errors;
 };

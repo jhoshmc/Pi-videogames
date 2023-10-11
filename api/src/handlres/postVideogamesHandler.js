@@ -5,22 +5,23 @@ module.exports = async (req, res) => {
       name,
       description,
       platforms,
-      image_background,
+      background_image,
       released,
       rating,
       idGenre,
     } = req.body;
+
     const game = await createVideogameDB(
       name,
       description,
-      platforms,
-      image_background,
+      platforms.split(","),
+      background_image,
       released,
       rating,
       idGenre
     );
     res.status(200).json(game);
   } catch (error) {
-    res.status(400).send({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 };

@@ -18,9 +18,10 @@ const clearInfo = (games) => {
       platforms: !game.created
         ? game.platforms?.map((platform) => platform.platform.name)
         : game.platforms,
-      image_background: game.background_image,
+      background_image: game.background_image,
       released: game.released,
       rating: game.rating,
+      created: !game.created ? false : true,
     };
   });
   return gameClear;
@@ -40,9 +41,10 @@ const clearIdInfo = (data, tipo) => {
       tipo === "api"
         ? data.platforms?.map((platform) => platform.platform.name)
         : data.platforms,
-    image_background: data.background_image,
+    background_image: data.background_image,
     released: data.released,
     rating: data.rating,
+    created: tipo === "api" ? false : true,
   };
 };
 

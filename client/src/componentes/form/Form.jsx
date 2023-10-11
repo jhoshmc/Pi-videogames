@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { validation } from "../../helpers/validations";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { getGenres } from "../../redux/actionsCreated";
+import { useNavigate } from "react-router-dom";
 const Form = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const Allgenres = useSelector((state) => state.genres);
+
+  useEffect(() => {
+    dispatch(getGenres());
+  }, []);
   const [input, setInput] = useState({
     name: "",
     background_image: "",
     description: "",
     platforms: "",
-    releazed: "",
+    released: "",
     rating: "",
-    // genres: [],
+    idGenre: [],
   });
 
   const [errors, setErrors] = useState({
@@ -16,32 +27,125 @@ const Form = () => {
     background_image: "",
     description: "",
     platforms: "",
-    releazed: "",
+    released: "",
     rating: "",
-    // genres: [],
+    idGenre: [],
   });
 
   const handleChange = (event) => {
+    const property = event.target.name;
+    const value = event.target.value;
+
+    /*
+    if (property === "idGenre") {
+      const selectedGenres = Array.from(
+        event.target.selectedOptions,
+        (option) => option.value
+      );
+
+      // Filtrar los géneros seleccionados para eliminar duplicados
+      const uniqueGenres = Array.from(new Set(selectedGenres));
+
+      setInput({
+        ...input,
+        [property]: uniqueGenres,
+      });
+    }*/
+    /*
+    if (property === "idGenre") {
+      const selectedGenres = Array.from(
+        event.target.selectedOptions,
+        (option) => option.value
+      );
+
+      setInput({
+        ...input,
+        [property]: selectedGenres,
+      });
+    } else {
+      setInput({
+        ...input,
+        [property]: value,
+      });
+    }*/
+    /*
+    if (property === "gernes") {
+      const gen = Array.from(
+        event.target.selectedOptions,
+        (option) => option.value
+      );
+      if (!input.idGenre.includes(gen)) {
+        setInput({
+          ...input,
+          idGenre: [...input.idGenre, gen],
+        });
+      }
+    }*/
+
     setInput({
       ...input,
-      [event.target.name]: event.target.value,
+      [property]: value,
     });
+
     setErrors(
       validation({
         ...input,
-        [event.target.name]: event.target.value,
+        [property]: value,
       })
     );
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  //m
+  const handleGenresChange = (event) => {
+    const genre = event.target.value;
+    console.log(event.target.checked);
+    if (event.target.checked) {
+      setInput((prevState) => ({
+        ...prevState,
+        idGenre: [...prevState.idGenre, genre],
+      }));
+    } else {
+      setInput((prevState) => ({
+        ...prevState,
+        idGenre: prevState.idGenre.filter((g) => g !== genre),
+      }));
+    }
   };
+  //m
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // axios
+    //   .post("http://localhost:3001/videogames", input)
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error("error en la solicitud");
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((data) => console.log(data))
+    //   .catch((error) => {
+    //     console.log(error.message);
+    //   });
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3001/videogames",
+        input
+      );
+      //console.log(response);
+      alert("juego creado");
+      navigate(`/home/${data.id}`);
+    } catch (error) {
+      //console.log(error.response.data.error);
+      alert(error.response.data.error);
+    }
+  };
+
   return (
     <div>
       <h2>Creacion de un juego</h2>
-      <form onSubmit={""}>
+      <form onSubmit={handleSubmit}>
         <div>
-          <label>Nombre: </label>
+          <label>Nombre:</label>
           <input
             type="text"
             name="name"
@@ -51,7 +155,7 @@ const Form = () => {
         </div>
         {errors.name && <span>{errors.name}</span>}
         <div>
-          <label>url imagen: </label>
+          <label>url imagen:</label>
           <input
             type="text"
             name="background_image"
@@ -59,9 +163,9 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
-        {/* {errors.background_image && <span>{errors.background_image}</span>} */}
+        {errors.background_image && <span>{errors.background_image}</span>}
         <div>
-          <label>Description: </label>
+          <label>Description:</label>
           <input
             type="text"
             name="description"
@@ -69,9 +173,9 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
-        {/* {errors.description && <span>{errors.description}</span>} */}
+        {errors.description && <span>{errors.description}</span>}
         <div>
-          <label>Platforms: </label>
+          <label>Platforms:</label>
           <input
             type="text"
             name="platforms"
@@ -79,71 +183,59 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
-        {/* {errors.platforms && <span>{errors.platforms}</span>} */}
+        {errors.platforms && <span>{errors.platforms}</span>}
         <div>
-          <label>Released: </label>
+          <label>Released:</label>
           <input
-            type="text"
-            name="releazed"
-            value={input.releazed}
+            type="date"
+            name="released"
+            value={input.released}
             onChange={handleChange}
           />
         </div>
-        {/* {errors.releazed && <span>{errors.releazed}</span>} */}
+        {errors.released && <span>{errors.released}</span>}
         <div>
-          <label>Rating: </label>
+          <label>Rating:</label>
           <input
-            type="text"
+            type="number"
             name="rating"
             value={input.rating}
             onChange={handleChange}
           />
         </div>
-        {/*errors.rating && <span>{errors.rating}</span>*/}
-        {/*
+        {errors.rating && <span>{errors.rating}</span>}
         <div>
-          <label>Genres: </label>
-          <div>
-            <input type="checkbox" name="" id="" />
-            <label>Action</label>
-            <input type="checkbox" name="" id="" />
-            <label>Indie</label>
-            <input type="checkbox" name="" id="" />
-            <label>Adventure</label>
-            <input type="checkbox" name="" id="" />
-            <label>RPG</label>
-            <input type="checkbox" name="" id="" />
-            <label>Strategy</label>
-            <input type="checkbox" name="" id="" />
-            <label>Shooter</label>
-            <input type="checkbox" name="" id="" />
-            <label>Casual</label>
-            <input type="checkbox" name="" id="" />
-            <label>Simulation</label>
-            <input type="checkbox" name="" id="" />
-            <label>Puzzle</label>
-            <input type="checkbox" name="" id="" />
-            <label>Arcade</label>
-            <input type="checkbox" name="" id="" />
-            <label>Plarformer</label>
-            <input type="checkbox" name="" id="" />
-            <label>Massively Multiplayer</label>
-            <input type="checkbox" name="" id="" />
-            <label>Racing</label>
-            <input type="checkbox" name="" id="" />
-            <label>Sports</label>
-            <input type="checkbox" name="" id="" />
-            <label>Fighting</label>
-            <input type="checkbox" name="" id="" />
-            <label>Family</label>
-            <input type="checkbox" name="" id="" />
-            <label>Board Games</label>
-            <input type="checkbox" name="" id="" />
-            <label>Educational</label>
-            <input type="checkbox" name="" id="" />
-            <label>Card</label>
-          </div>
-  </div>*/}
+          <label>Genres:</label>
+          <br />
+          {Allgenres.map((gen) => {
+            return (
+              <div key={gen.id}>
+                <input
+                  type="checkbox"
+                  value={gen.name}
+                  onChange={handleGenresChange}
+                />
+                <label>{gen.name}</label>
+              </div>
+            );
+          })}
+
+          {/* <select
+            multiple
+            name="idGenre"
+            onChange={handleChange}
+            value={input.idGenre}
+          >
+            <option> </option>
+            {idGenre.map((genre) => (
+              <option type="input" key={genre.id} value={genre.name}>
+                {genre.name}
+              </option>
+            ))}
+          </select> */}
+        </div>
+        {errors.idGenre && <span>{errors.idGenre}</span>}
+
         <button type="submit">crear</button>
       </form>
     </div>

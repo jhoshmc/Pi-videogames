@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
       platforms: {
         type: DataTypes.ARRAY(DataTypes.STRING),
       },
-      image_background: {
+      background_image: {
         type: DataTypes.STRING,
       },
       released: {

@@ -8,8 +8,18 @@ const { Videogame, Genre } = require("../db");
 
 //*---------
 const getAllvideogames = async () => {
-  const responseApi = (await axios(`${url}?key=${API_KEY}&limimit=15`)).data
-    .results;
+  let arrGames = [];
+  for (let i = 1; i <= 5; i++) {
+    const responseApi = (await axios(`${url}?key=${API_KEY}&page=${i}`)).data
+      .results;
+    const gamesApi = clearInfo(responseApi);
+    // arrGames.push(gamesApi);
+    arrGames = [...arrGames, gamesApi];
+  }
+  const arrayPlano = arrGames.reduce(
+    (acumulador, elemento) => acumulador.concat(elemento),
+    []
+  );
   const responseDB = await Videogame.findAll({
     include: {
       model: Genre,
@@ -17,9 +27,9 @@ const getAllvideogames = async () => {
     },
   });
   const gameDb = clearInfo(responseDB);
-  const gamesApi = clearInfo(responseApi);
 
-  return [...gameDb, ...gamesApi];
+  return [...gameDb, ...arrayPlano];
+  // return arrayPlano;
 };
 
 //*--------
@@ -75,7 +85,7 @@ const createVideogameDB = async (
   name,
   description,
   platforms,
-  image_background,
+  background_image,
   released,
   rating,
   idGenre
@@ -83,21 +93,28 @@ const createVideogameDB = async (
   if (!idGenre.length) {
     throw new Error("no hay generos en la base de datos ");
   }
+  //name.toLowerCase().replace(/ /g, "");
+  const created = await Videogame.findOne({
+    where: { name: name.toLowerCase().trim() },
+  });
+  if (created) {
+    //null
+    throw new Error("juego ya ingresado con el mismo nombre");
+  }
   const genre = await Genre.findAll({
     where: {
       name: idGenre,
     },
   });
-
-  const [row, created] = await Videogame.findOrCreate({
-    where: { name, description, platforms, image_background, released, rating },
+  const row = await Videogame.create({
+    name: name.toLowerCase().trim(),
+    description,
+    platforms,
+    background_image,
+    released,
+    rating,
   });
 
-  if (created === false) {
-    throw new Error(
-      "un juego con las mismas caracteriticas ya a sido ingresado "
-    );
-  }
   await row.addGenre(genre);
 
   return row;
