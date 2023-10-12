@@ -7,3 +7,4 @@ export const ORDER = "ORDER";
 export const FILTER = "FILTER";
 export const CLEAR_DETAIL = "CLEAR_DETAIL";
 export const FUENTE_GAME = "FUENTE_GAME";
+export const DELETE_GAME = "DELETE_GAME";

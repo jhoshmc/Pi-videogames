@@ -8,6 +8,7 @@ import {
   FILTER,
   PAGINATE,
   FUENTE_GAME,
+  DELETE_GAME,
 } from "./actionsTypes";
 
 const initialSate = {
@@ -18,6 +19,7 @@ const initialSate = {
   currentPage: 0,
   gamesFiltered: [],
   filter: false,
+  tipo: [],
 };
 
 const rootReducer = (state = initialSate, action) => {
@@ -151,6 +153,10 @@ const rootReducer = (state = initialSate, action) => {
         allVideogames: [...filterByTipo].splice(0, ITEMS_PER_PAGE),
         gamesFiltered: filterByTipo,
         filter: true,
+      };
+    case DELETE_GAME:
+      return {
+        ...state,
       };
 
     default:

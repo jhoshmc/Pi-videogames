@@ -1,11 +1,27 @@
-import style from "./card.module.css";
 import { NavLink } from "react-router-dom";
-const Card = ({ game }) => {
+import { useDispatch } from "react-redux";
+import { deleteGame } from "../../redux/actionsCreated";
+import style from "./card.module.css";
+const Card = ({ game, deleteHandler }) => {
   // console.log(game);
+  // const dispatch = useDispatch();
+  // const deleteHandler = (event) => {
+  //   console.log(event.target.value);
+  //   dispatch(deleteGame(event.target.value));
+  // };
 
-  const { background_image, name, genres, id, rating } = game;
+  const { background_image, name, genres, id, rating, created } = game;
   return (
     <div key={id} className={style.container}>
+      {created ? (
+        <div>
+          <button value={id} onClick={deleteHandler}>
+            X
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
       <div>
         <img className={style.imagen} src={background_image} alt={name} />
       </div>

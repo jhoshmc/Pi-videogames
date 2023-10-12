@@ -123,6 +123,23 @@ const createVideogameDB = async (
 
   return row;
 };
+const deleteGame = async (id) => {
+  const find = await Videogame.findByPk(id);
+  if (!find) {
+    throw new Error("no se puede eliminar un juego que no existe");
+  }
+  await Videogame.destroy({ where: { id } });
+  const allVideoGames = await Videogame.findAll({
+    include: [
+      {
+        model: Genre,
+        attributes: ["name"],
+        through: { attributes: [] },
+      },
+    ],
+  });
+  return allVideoGames;
+};
 
 module.exports = {
   getApiGames,
@@ -130,4 +147,5 @@ module.exports = {
   idVideogame,
   getNameVideogame,
   createVideogameDB,
+  deleteGame,
 };

@@ -99,3 +99,19 @@ export function fuenteGame(tipo) {
     }
   };
 }
+
+export function deleteGame(id) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3001/videogames/${id}`
+      );
+      dispatch({
+        type: "DELETE_GAME",
+        payload: response.data,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+}

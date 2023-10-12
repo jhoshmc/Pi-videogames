@@ -67,6 +67,7 @@ const Home = () => {
           tipoFuente={tipoFuente}
         />
       </div>
+
       <Paginate paginate={paginate} />
 
       <Cards />
