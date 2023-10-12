@@ -6,10 +6,10 @@
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  background: url("../../asserts/timy.gif") no-repeat;
+  background: url("../../asserts/fondo_landing.gif") no-repeat;
   background-position: center;
   background-size: cover;
 }
 .letras {
-  color: brown;
+  color: rgb(88, 225, 138);
 }

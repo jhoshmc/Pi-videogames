@@ -1,9 +1,11 @@
 .container {
+  color: white;
   display: flex;
   flex-direction: column;
-  background-color: #95dada;
+  background-color: #1c1e1e;
   border: 1px solid gray;
-  border-radius: 5px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 5px rgba(158, 32, 167, 0.7);
   padding: 25px;
   cursor: pointer;
   -moz-osx-font-smoothing: grayscale;
@@ -14,4 +16,16 @@
 
 .container:hover {
   transform: scale(1.05);
+}
+
+.imagen {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+}
+.genresContainer {
+  display: flex;
+  justify-content: space-around;
+
+  flex-wrap: wrap;
 }

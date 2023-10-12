@@ -3,20 +3,25 @@ import { NavLink } from "react-router-dom";
 const Card = ({ game }) => {
   // console.log(game);
 
-  const { background_image, name, genres, id } = game;
+  const { background_image, name, genres, id, rating } = game;
   return (
-    <div className={style.container}>
-      <NavLink to={`/home/${id}`}>
-        <div key={id}>
-          <img src={background_image} alt={name} width="200px" height="200px" />
-        </div>
-        <h2>{id}</h2>
+    <div key={id} className={style.container}>
+      <div>
+        <img className={style.imagen} src={background_image} alt={name} />
+      </div>
+      <div>
         <h2>{name}</h2>
-        <div>
+        <div className={style.genresContainer}>
           {genres?.map((genre) => (
             <h5>{`${genre} `}</h5>
           ))}
         </div>
+        <div>
+          <span>⭐{rating}</span>
+        </div>
+      </div>
+      <NavLink to={`/home/${id}`}>
+        <div>View more</div>
       </NavLink>
     </div>
   );

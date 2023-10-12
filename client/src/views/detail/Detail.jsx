@@ -24,32 +24,39 @@ const Detail = () => {
     return <Loading />;
   }
   return (
-    <div>
-      <h1>Detail</h1>
-      <NavLink to="/home">
-        <button>back</button>
-      </NavLink>
-      <div key={id} className={style.container}>
-        <h3>{videogame.id}</h3>
-        <h2>{videogame.name}</h2>
-        <img
-          className={style.imagen}
-          src={videogame.background_image}
-          alt={videogame.name}
-        />
-        <div>
-          {videogame.platforms?.map((platfor) => (
-            <h3>{platfor}</h3>
-          ))}
+    <div key={id} className={style.container}>
+      <div>
+        <NavLink to="/home">
+          <button>back</button>
+        </NavLink>
+      </div>
+      <div className={style.cocontainer}>
+        <div className={style.divImagen}>
+          <img
+            className={style.imagen}
+            src={videogame.background_image}
+            alt={videogame.name}
+          />
         </div>
-        <h2>{videogame.description}</h2>
-        <h2>{videogame.released}</h2>
-        <h2>{videogame.rating}</h2>
-        <h2>
-          {videogame.genres?.map((genre) => (
-            <samp>{`${genre} `}</samp>
-          ))}
-        </h2>
+        <div className={style.infoContend}>
+          <h3>{videogame.id}</h3>
+          <h2>{videogame.name}</h2>
+          <div className={style.platformsContainer}>
+            {videogame.platforms?.map((platfor) => (
+              <h4>{platfor}</h4>
+            ))}
+          </div>
+          <h2>{videogame.released}</h2>
+          <h2>{videogame.rating}</h2>
+          <div className={style.genresContainer}>
+            {videogame.genres?.map((genre) => (
+              <h3>{`${genre} `}</h3>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className={style.description}>
+        <h4>{videogame.description}</h4>
       </div>
     </div>
   );

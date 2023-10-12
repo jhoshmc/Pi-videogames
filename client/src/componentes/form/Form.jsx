@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { validation } from "../../helpers/validations";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-
+import style from "./form.module.css";
 import { useNavigate } from "react-router-dom";
 const Form = () => {
   const navigate = useNavigate();
@@ -79,7 +79,7 @@ const Form = () => {
   return (
     <div>
       <h2>Creacion de un juego</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={style.container}>
         <div>
           <label>Nombre:</label>
           <input
@@ -89,7 +89,7 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
-        {errors.name && <span>{errors.name}</span>}
+        {errors.name && <h4>{errors.name}</h4>}
         <div>
           <label>url imagen:</label>
           <input
@@ -99,7 +99,7 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
-        {errors.background_image && <span>{errors.background_image}</span>}
+        {errors.background_image && <h4>{errors.background_image}</h4>}
         <div>
           <label>Description:</label>
           <input
@@ -109,7 +109,7 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
-        {errors.description && <span>{errors.description}</span>}
+        {errors.description && <h4>{errors.description}</h4>}
         <div>
           <label>Platforms:</label>
           <input
@@ -119,7 +119,7 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
-        {errors.platforms && <span>{errors.platforms}</span>}
+        {errors.platforms && <h4>{errors.platforms}</h4>}
         <div>
           <label>Released:</label>
           <input
@@ -129,7 +129,7 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
-        {errors.released && <span>{errors.released}</span>}
+        {errors.released && <h4>{errors.released}</h4>}
         <div>
           <label>Rating:</label>
           <input
@@ -139,10 +139,10 @@ const Form = () => {
             onChange={handleChange}
           />
         </div>
-        {errors.rating && <span>{errors.rating}</span>}
-        <div>
+        {errors.rating && <h4>{errors.rating}</h4>}
+        <div className={style.genresContainer}>
           <label>Genres:</label>
-          <br />
+
           {Allgenres.map((gen) => {
             return (
               <div key={gen.id}>
@@ -156,7 +156,7 @@ const Form = () => {
             );
           })}
         </div>
-        {errors.idGenre && <span>{errors.idGenre}</span>}
+        {errors.idGenre && <h4>{errors.idGenre}</h4>}
         <div>
           <button type="submit">crear</button>
         </div>
