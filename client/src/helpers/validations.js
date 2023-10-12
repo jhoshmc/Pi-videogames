@@ -17,7 +17,12 @@ export const validation = (data) => {
   if (!imagen.test(data.background_image)) {
     errors.background_image = "La url de la imagen no puede ser procesada";
   }
-
+  if (!data.description) {
+    errors.description = "por favor, ingrese una breve descripcion";
+  }
+  if (data.description.length > 100) {
+    errors.description = "no puede pasar mas de 100 caracteres";
+  }
   if (!data.platforms) {
     errors.platforms = "Al menos deve tener una plataforma";
   }

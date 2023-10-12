@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import style from "./paginate.module.css";
 const Paginate = ({ paginate }) => {
-  const cont = useSelector((state) => state.currentPage);
-
+  let cont = useSelector((state) => state.currentPage);
+  cont += 1;
   return (
     <div className={style.container}>
       <button name="prev" onClick={paginate}>

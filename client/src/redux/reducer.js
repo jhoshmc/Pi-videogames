@@ -18,8 +18,6 @@ const initialSate = {
   currentPage: 0,
   gamesFiltered: [],
   filter: false,
-  DBVideogames: [],
-  ApiVideogames: [],
 };
 
 const rootReducer = (state = initialSate, action) => {

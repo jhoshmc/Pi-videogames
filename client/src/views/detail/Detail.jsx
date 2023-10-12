@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail, cleardetail } from "../../redux/actionsCreated";
 import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import Loading from "../../componentes/loading/Loading";
 import style from "./detail.module.css";
 const Detail = () => {
+  const [carga, setCarga] = useState(true);
   const { id } = useParams();
   //console.log(id);
   const dispatch = useDispatch();
@@ -15,9 +17,12 @@ const Detail = () => {
   // console.log(videogame.platforms);
 
   useEffect(() => {
-    dispatch(getDetail(id));
+    dispatch(getDetail(id)).then(() => setCarga(false));
     return () => dispatch(cleardetail());
   }, [id]);
+  if (carga) {
+    return <Loading />;
+  }
   return (
     <div>
       <h1>Detail</h1>

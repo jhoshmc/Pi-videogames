@@ -5,7 +5,7 @@ import {
   fuenteGame,
   getByName,
   // getGenres,
-  getVideogames,
+  // getVideogames,
   order,
   paginateGames,
 } from "../../redux/actionsCreated";
@@ -16,7 +16,7 @@ import style from "./home.module.css";
 import Paginate from "../../componentes/paginate/Paginate";
 const Home = () => {
   const dispatch = useDispatch();
-  const allVideogames = useSelector((state) => state.allVideogames);
+  // const allVideogames = useSelector((state) => state.allVideogames);
   // const genres= useSelector((state)=state.genres)
 
   const [searchString, setSearchString] = useState("");
@@ -49,12 +49,12 @@ const Home = () => {
     dispatch(fuenteGame(event.target.value));
   }
 
-  useEffect(() => {
-    // cuando la pagina se carge va a llegar al reducer el reducer va a definir que caso es , modifica el estado y lo devuelve
-    dispatch(getVideogames());
-    // dispatch(getGenres())
-  }, [dispatch]);
-  console.log(allVideogames);
+  // useEffect(() => {
+  //   // cuando la pagina se carge va a llegar al reducer el reducer va a definir que caso es , modifica el estado y lo devuelve
+  //   dispatch(getVideogames());
+  //   // dispatch(getGenres())
+  // }, [dispatch]);
+  //console.log(allVideogames);
   return (
     <div className={style.container}>
       <h3 className={style.home_title}>Videogames</h3>
@@ -69,7 +69,7 @@ const Home = () => {
       </div>
       <Paginate paginate={paginate} />
 
-      <Cards allVideogames={allVideogames} />
+      <Cards />
 
       <Paginate paginate={paginate} />
     </div>

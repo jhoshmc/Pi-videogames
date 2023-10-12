@@ -14,7 +14,6 @@ const NavBar = ({
   const dispatch = useDispatch();
   const genres = useSelector((state) => state.genres);
 
-  // console.log(all);
   useEffect(() => {
     dispatch(getGenres());
   }, []);
@@ -35,8 +34,8 @@ const NavBar = ({
 
       <div>
         <label>orden: </label>
-        <select onClick={handleOrder}>
-          {/* <option value=""> </option> */}
+        <select onChange={handleOrder}>
+          <option value=""> </option>
           <option value="AZ">A-Z</option>
           <option value="ZA">Z-A</option>
           <option value="top">🔝</option>
@@ -45,7 +44,8 @@ const NavBar = ({
       </div>
       <div>
         <label>Fuente: </label>
-        <select onClick={tipoFuente}>
+        <select onChange={tipoFuente}>
+          <option value=""> </option>
           <option value="all">All</option>
           <option value="api">Api</option>
           <option value="db">Db</option>

@@ -7,7 +7,7 @@ const { clearInfo, clearIdInfo } = require("../helpers/clearData");
 const { Videogame, Genre } = require("../db");
 
 //*---------
-const getAllvideogames = async () => {
+const getApiGames = async () => {
   let arrGames = [];
   for (let i = 1; i <= 5; i++) {
     const responseApi = (await axios(`${url}?key=${API_KEY}&page=${i}`)).data
@@ -20,6 +20,12 @@ const getAllvideogames = async () => {
     (acumulador, elemento) => acumulador.concat(elemento),
     []
   );
+  return arrayPlano;
+
+  // return arrayPlano;
+};
+//*-------
+const getDBGames = async () => {
   const responseDB = await Videogame.findAll({
     include: {
       model: Genre,
@@ -27,9 +33,7 @@ const getAllvideogames = async () => {
     },
   });
   const gameDb = clearInfo(responseDB);
-
-  return [...gameDb, ...arrayPlano];
-  // return arrayPlano;
+  return gameDb;
 };
 
 //*--------
@@ -121,7 +125,8 @@ const createVideogameDB = async (
 };
 
 module.exports = {
-  getAllvideogames,
+  getApiGames,
+  getDBGames,
   idVideogame,
   getNameVideogame,
   createVideogameDB,

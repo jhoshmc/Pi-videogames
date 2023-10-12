@@ -2,16 +2,13 @@ import { useState, useEffect } from "react";
 import { validation } from "../../helpers/validations";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { getGenres } from "../../redux/actionsCreated";
+
 import { useNavigate } from "react-router-dom";
 const Form = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const Allgenres = useSelector((state) => state.genres);
 
-  useEffect(() => {
-    dispatch(getGenres());
-  }, []);
   const [input, setInput] = useState({
     name: "",
     background_image: "",
@@ -22,66 +19,12 @@ const Form = () => {
     idGenre: [],
   });
 
-  const [errors, setErrors] = useState({
-    name: "",
-    background_image: "",
-    description: "",
-    platforms: "",
-    released: "",
-    rating: "",
-    idGenre: [],
-  });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
+    event.preventDefault();
     const property = event.target.name;
     const value = event.target.value;
-
-    /*
-    if (property === "idGenre") {
-      const selectedGenres = Array.from(
-        event.target.selectedOptions,
-        (option) => option.value
-      );
-
-      // Filtrar los géneros seleccionados para eliminar duplicados
-      const uniqueGenres = Array.from(new Set(selectedGenres));
-
-      setInput({
-        ...input,
-        [property]: uniqueGenres,
-      });
-    }*/
-    /*
-    if (property === "idGenre") {
-      const selectedGenres = Array.from(
-        event.target.selectedOptions,
-        (option) => option.value
-      );
-
-      setInput({
-        ...input,
-        [property]: selectedGenres,
-      });
-    } else {
-      setInput({
-        ...input,
-        [property]: value,
-      });
-    }*/
-    /*
-    if (property === "gernes") {
-      const gen = Array.from(
-        event.target.selectedOptions,
-        (option) => option.value
-      );
-      if (!input.idGenre.includes(gen)) {
-        setInput({
-          ...input,
-          idGenre: [...input.idGenre, gen],
-        });
-      }
-    }*/
-
     setInput({
       ...input,
       [property]: value,
@@ -94,7 +37,7 @@ const Form = () => {
       })
     );
   };
-  //m
+
   const handleGenresChange = (event) => {
     const genre = event.target.value;
     console.log(event.target.checked);
@@ -110,30 +53,23 @@ const Form = () => {
       }));
     }
   };
-  //m
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // axios
-    //   .post("http://localhost:3001/videogames", input)
-    //   .then((response) => {
-    //     if (!response.ok) {
-    //       throw new Error("error en la solicitud");
-    //     }
-    //     return response.json();
-    //   })
-    //   .then((data) => console.log(data))
-    //   .catch((error) => {
-    //     console.log(error.message);
-    //   });
     try {
-      const { data } = await axios.post(
-        "http://localhost:3001/videogames",
-        input
-      );
-      //console.log(response);
-      alert("juego creado");
-      navigate(`/home/${data.id}`);
+      let err = Object.keys(validation(input));
+      if (err.length !== 0) {
+        alert("llene todos los datos");
+        return;
+      } else {
+        const { data } = await axios.post(
+          "http://localhost:3001/videogames",
+          input
+        );
+        //console.log(response);
+        alert("juego creado");
+        navigate(`/home/${data.id}`);
+      }
     } catch (error) {
       //console.log(error.response.data.error);
       alert(error.response.data.error);
@@ -219,24 +155,11 @@ const Form = () => {
               </div>
             );
           })}
-
-          {/* <select
-            multiple
-            name="idGenre"
-            onChange={handleChange}
-            value={input.idGenre}
-          >
-            <option> </option>
-            {idGenre.map((genre) => (
-              <option type="input" key={genre.id} value={genre.name}>
-                {genre.name}
-              </option>
-            ))}
-          </select> */}
         </div>
         {errors.idGenre && <span>{errors.idGenre}</span>}
-
-        <button type="submit">crear</button>
+        <div>
+          <button type="submit">crear</button>
+        </div>
       </form>
     </div>
   );
