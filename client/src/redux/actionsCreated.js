@@ -2,7 +2,7 @@ import axios from "axios";
 
 export function getVideogames() {
   return async function (dispatch) {
-    const response = await axios("http://localhost:3001/videogames");
+    const response = await axios(`/videogames`);
     return dispatch({
       type: "GET_VIDEOGAMES",
       payload: response.data,
@@ -12,9 +12,7 @@ export function getVideogames() {
 export function getByName(name) {
   return async function (dispatch) {
     try {
-      const { data } = await axios(
-        `http://localhost:3001/videogames/name?name=${name}`
-      );
+      const { data } = await axios(`/videogames/name?name=${name}`);
       // const response = await axios(
       //   `http://localhost:3001/videogames/name?name=${name}`
       // );
@@ -29,7 +27,7 @@ export function getByName(name) {
 }
 export function getDetail(id) {
   return async function (dispatch) {
-    const response = await axios(`http://localhost:3001/videogames/${id}`);
+    const response = await axios(`/videogames/${id}`);
     return dispatch({
       type: "GET_BY_DETAIL",
       payload: response.data,
@@ -39,7 +37,7 @@ export function getDetail(id) {
 
 export function getGenres() {
   return async function (dispatch) {
-    const response = await axios("http://localhost:3001/genres");
+    const response = await axios(`/genres`);
 
     return dispatch({
       type: "GET_GENRES",
@@ -103,9 +101,7 @@ export function fuenteGame(tipo) {
 export function deleteGame(id) {
   return async function (dispatch) {
     try {
-      const response = await axios.delete(
-        `http://localhost:3001/videogames/${id}`
-      );
+      const response = await axios.delete(`/videogames/${id}`);
       dispatch({
         type: "DELETE_GAME",
         payload: response.data,
