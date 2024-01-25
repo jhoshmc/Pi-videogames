@@ -19,6 +19,11 @@ const router = Router();
 
 // router.use("/videogames", gameRouter);
 //router.use("/videogames", postRouter);
+router.get("/get", (req, res) => {
+  res
+    .status(200)
+    .send("hola a todos , ni idea porque no funcionan las rutas de game");
+});
 router.get("/game", videogamesHandler);
 
 // traer por name:
