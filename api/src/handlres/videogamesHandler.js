@@ -16,11 +16,13 @@ module.exports = async (req, res) => {
     if (gamesApi.length === 0) {
       gamesApi = await getApiGames();
     }
+    console.log("gamesApi" + gamesApi.length);
     const gamesDB = await getDBGames();
     const allVideogames = [...gamesDB, ...gamesApi];
     res.status(200).json(allVideogames);
     console.log(gamesApi.length);
   } catch (error) {
-    res.status(400).json({ error: error.message + " videogmae" });
+    console.log("error gamesApi" + gamesApi.length);
+    res.status(400).json({ error: error.message + " videogame" });
   }
 };
